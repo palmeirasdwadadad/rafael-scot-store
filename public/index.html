@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Rafael Scot Store</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #09090b;
+    color: white;
+}
+
+/* HEADER */
+
+header {
+
+    background:
+    linear-gradient(
+        135deg,
+        #6d28d9,
+        #9333ea
+    );
+
+    padding: 22px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+.logo {
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+}
+
+button {
+
+    cursor: pointer;
+
+}
+
+.carrinho-btn {
+
+    background: white;
+
+    color: #6d28d9;
+
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+}
+
+/* ABAS */
+
+.abas {
+
+    display: flex;
+
+    gap: 10px;
+
+    padding: 18px;
+
+    overflow-x: auto;
+
+    background: #111113;
+
+}
+
+.aba {
+
+    background: #1c1c20;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    white-space: nowrap;
+
+}
+
+.aba.ativa {
+
+    background: #7c3aed;
+
+}
+
+/* CONTAINER */
+
+.container {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 25px;
+
+}
+
+/* PRODUTOS */
+
+.produtos {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+    );
+
+    gap: 20px;
+
+}
+
+.produto {
+
+    background: #151518;
+
+    border: 1px solid #29292f;
+
+    border-radius: 18px;
+
+    padding: 15px;
+
+}
+
+.produto img {
+
+    width: 100%;
+
+    height: 190px;
+
+    object-fit: contain;
+
+    background: #0d0d0f;
+
+    border-radius: 12px;
+
+}
+
+.produto h3 {
+
+    margin-top: 12px;
+
+}
+
+.jogo {
+
+    color: #a78bfa;
+
+    margin-top: 5px;
+
+    font-size: 14px;
+
+}
+
+.preco {
+
+    color: #4ade80;
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    margin-top: 10px;
+
+}
+
+.estoque {
+
+    color: #aaa;
+
+    margin-top: 5px;
+
+}
+
+.comprar {
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #7c3aed;
+
+    color: white;
+
+    font-weight: bold;
+
+}
+
+.excluir {
+
+    width: 100%;
+
+    margin-top: 7px;
+
+    padding: 9px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #dc2626;
+
+    color: white;
+
+}
+
+/* ADMIN */
+
+.admin {
+
+    margin-top: 40px;
+
+    background: #111113;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+}
+
+.admin h2 {
+
+    margin-bottom: 20px;
+
+}
+
+input,
+textarea {
+
+    width: 100%;
+
+    padding: 13px;
+
+    margin-bottom: 10px;
+
+    background: #1c1c20;
+
+    border: 1px solid #333;
+
+    border-radius: 9px;
+
+    color: white;
+
+}
+
+.btn {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    font-weight: bold;
+
+}
+
+.adicionar {
+
+    background: #22c55e;
+
+    color: white;
+
+}
+
+/* CARRINHO */
+
+.carrinho {
+
+    position: fixed;
+
+    right: -430px;
+
+    top: 0;
+
+    width: 410px;
+
+    max-width: 95%;
+
+    height: 100%;
+
+    background: #111113;
+
+    z-index: 1000;
+
+    padding: 25px;
+
+    transition: .3s;
+
+    overflow-y: auto;
+
+    box-shadow:
+    -5px 0 30px rgba(0,0,0,.6);
+
+}
+
+.carrinho.aberto {
+
+    right: 0;
+
+}
+
+.fechar {
+
+    float: right;
+
+    background: #dc2626;
+
+    color: white;
+
+    border: none;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+}
+
+.item-carrinho {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    background: #1c1c20;
+
+    border-radius: 12px;
+
+}
+
+.item-carrinho button {
+
+    margin-top: 8px;
+
+    padding: 7px;
+
+    border: none;
+
+    border-radius: 7px;
+
+}
+
+.total {
+
+    margin-top: 25px;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+}
+
+.pix {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    background: #18181b;
+
+    border-radius: 12px;
+
+}
+
+.pix-chave {
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    background: #27272a;
+
+    border-radius: 8px;
+
+    word-break: break-all;
+
+}
+
+.pix button {
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #22c55e;
+
+    color: white;
+
+}
+
+/* REEMBOLSO */
+
+.reembolso {
+
+    margin-top: 20px;
+
+    padding: 20px;
+
+    background: #18181b;
+
+    border-radius: 12px;
+
+}
+
+.reembolso button {
+
+    background: #f59e0b;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    width: 100%;
+
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    header {
+
+        flex-direction: column;
+
+        gap: 15px;
+
+    }
+
+    .carrinho {
+
+        width: 100%;
+
+        right: -100%;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo"
+id="nomeLoja">
+
+🛒 Rafael Scot Store
+
+</div>
+
+<button
+class="carrinho-btn"
+onclick="abrirCarrinho()">
+
+🛒 Carrinho
+(<span id="quantidadeCarrinho">0</span>)
+
+</button>
+
+</header>
+
+<div
+class="abas"
+id="abas">
+
+</div>
+
+<div class="container">
+
+<h1 id="titulo">
+
+Todos os produtos
+
+</h1>
+
+<br>
+
+<div
+class="produtos"
+id="produtos">
+
+</div>
+
+<!-- ADMIN -->
+
+<div class="admin">
+
+<h2>⚙️ Administração</h2>
+
+<input
+id="nomeProduto"
+placeholder="Nome do produto">
+
+<input
+id="jogoProduto"
+placeholder="Jogo">
+
+<input
+id="precoProduto"
+type="number"
+step="0.01"
+placeholder="Valor">
+
+<input
+id="estoqueProduto"
+type="number"
+placeholder="Estoque">
+
+<input
+id="imagemProduto"
+placeholder="URL da imagem">
+
+<button
+class="btn adicionar"
+onclick="adicionarProduto()">
+
+➕ ADICIONAR PRODUTO
+
+</button>
+
+<br><br>
+
+<h2>🏪 Configuração da Loja</h2>
+
+<input
+id="nomeLojaInput"
+placeholder="Nome da loja">
+
+<input
+id="pixInput"
+placeholder="Chave Pix">
+
+<button
+class="btn adicionar"
+onclick="salvarConfig()">
+
+💾 SALVAR CONFIGURAÇÕES
+
+</button>
+
+<!-- REEMBOLSO -->
+
+<div class="reembolso">
+
+<h2>💸 Solicitação de Reembolso</h2>
+
+<br>
+
+<input
+id="pedidoReembolso"
+placeholder="Número do pedido">
+
+<textarea
+id="motivoReembolso"
+placeholder="Motivo do reembolso">
+</textarea>
+
+<button
+onclick="solicitarReembolso()">
+
+💸 SOLICITAR REEMBOLSO
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CARRINHO -->
+
+<div
+class="carrinho"
+id="carrinho">
+
+<button
+class="fechar"
+onclick="fecharCarrinho()">
+
+✕
+
+</button>
+
+<h2>🛒 Meu Carrinho</h2>
+
+<div
+id="itensCarrinho">
+
+</div>
+
+<div class="total">
+
+Total: R$
+<span id="total">
+0.00
+</span>
+
+</div>
+
+<div class="pix">
+
+<h3>💰 Pagamento via Pix</h3>
+
+<p>
+
+Chave Pix:
+
+</p>
+
+<div
+class="pix-chave"
+id="pixCarrinho">
+
+58060640852
+
+</div>
+
+<button
+onclick="copiarPix()">
+
+📋 COPIAR CHAVE PIX
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+let produtos = [];
+
+let carrinho = [];
+
+let filtroAtual = "Todos";
+
+/* ==========================
+CONFIG
+========================== */
+
+async function carregarConfig() {
+
+    const resposta =
+        await fetch("/api/config");
+
+    const config =
+        await resposta.json();
+
+    document.getElementById(
+        "nomeLoja"
+    ).innerText =
+        "🛒 " + config.nomeLoja;
+
+    document.getElementById(
+        "nomeLojaInput"
+    ).value =
+        config.nomeLoja;
+
+    document.getElementById(
+        "pixInput"
+    ).value =
+        config.pix;
+
+    document.getElementById(
+        "pixCarrinho"
+    ).innerText =
+        config.pix;
+
+}
+
+/* ==========================
+PRODUTOS
+========================== */
+
+async function carregarProdutos() {
+
+    const resposta =
+        await fetch("/api/produtos");
+
+    produtos =
+        await resposta.json();
+
+    criarAbas();
+
+    mostrarProdutos();
+
+}
+
+/* ==========================
+ABAS
+========================== */
+
+function criarAbas() {
+
+    const area =
+        document.getElementById("abas");
+
+    area.innerHTML = "";
+
+    const jogos = ["Todos"];
+
+    produtos.forEach(produto => {
+
+        if (!jogos.includes(produto.jogo)) {
+
+            jogos.push(produto.jogo);
+
+        }
+
+    });
+
+    jogos.forEach(jogo => {
+
+        const botao =
+            document.createElement("button");
+
+        botao.className =
+            "aba " +
+            (
+                jogo === filtroAtual
+                ? "ativa"
+                : ""
+            );
+
+        botao.innerText = jogo;
+
+        botao.onclick = () => {
+
+            filtroAtual = jogo;
+
+            criarAbas();
+
+            mostrarProdutos();
+
+        };
+
+        area.appendChild(botao);
+
+    });
+
+}
+
+/* ==========================
+MOSTRAR PRODUTOS
+========================== */
+
+function mostrarProdutos() {
+
+    const area =
+        document.getElementById("produtos");
+
+    area.innerHTML = "";
+
+    let lista = produtos;
+
+    if (filtroAtual !== "Todos") {
+
+        lista =
+            produtos.filter(
+                p => p.jogo === filtroAtual
+            );
+
+    }
+
+    document.getElementById(
+        "titulo"
+    ).innerText =
+        filtroAtual === "Todos"
+        ? "Todos os produtos"
+        : filtroAtual;
+
+    if (lista.length === 0) {
+
+        area.innerHTML =
+            "<p>Nenhum produto cadastrado.</p>";
+
+        return;
+
+    }
+
+    lista.forEach(produto => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "produto";
+
+        const imagem =
+            produto.imagem ||
+            "https://via.placeholder.com/400x300?text=Sem+Imagem";
+
+        card.innerHTML = `
+
+            <img
+            src="${imagem}"
+            onerror="this.src='https://via.placeholder.com/400x300?text=Imagem+invalida'">
+
+            <h3>
+            ${produto.nome}
+            </h3>
+
+            <div class="jogo">
+            🎮 ${produto.jogo}
+            </div>
+
+            <div class="preco">
+            R$ ${Number(produto.preco).toFixed(2)}
+            </div>
+
+            <div class="estoque">
+            📦 Estoque: ${produto.estoque}
+            </div>
+
+            <button
+            class="comprar"
+            onclick="adicionarCarrinho(${produto.id})">
+
+            🛒 ADICIONAR AO CARRINHO
+
+            </button>
+
+            <button
+            class="excluir"
+            onclick="excluirProduto(${produto.id})">
+
+            🗑️ EXCLUIR
+
+            </button>
+
+        `;
+
+        area.appendChild(card);
+
+    });
+
+}
+
+/* ==========================
+ADICIONAR PRODUTO
+========================== */
+
+async function adicionarProduto() {
+
+    const nome =
+        document.getElementById(
+            "nomeProduto"
+        ).value;
+
+    const jogo =
+        document.getElementById(
+            "jogoProduto"
+        ).value;
+
+    const preco =
+        document.getElementById(
+            "precoProduto"
+        ).value;
+
+    const estoque =
+        document.getElementById(
+            "estoqueProduto"
+        ).value;
+
+    const imagem =
+        document.getElementById(
+            "imagemProduto"
+        ).value;
+
+    if (
+        !nome ||
+        !jogo ||
+        !preco ||
+        !estoque
+    ) {
+
+        alert(
+            "Preencha nome, jogo, preço e estoque!"
+        );
+
+        return;
+
+    }
+
+    const resposta =
+        await fetch(
+            "/api/produtos",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    nome,
+                    jogo,
+                    preco,
+                    estoque,
+                    imagem
+
+                })
+
+            }
+        );
+
+    const resultado =
+        await resposta.json();
+
+    if (!resultado.sucesso) {
+
+        alert(resultado.erro);
+
+        return;
+
+    }
+
+    document.getElementById(
+        "nomeProduto"
+    ).value = "";
+
+    document.getElementById(
+        "jogoProduto"
+    ).value = "";
+
+    document.getElementById(
+        "precoProduto"
+    ).value = "";
+
+    document.getElementById(
+        "estoqueProduto"
+    ).value = "";
+
+    document.getElementById(
+        "imagemProduto"
+    ).value = "";
+
+    carregarProdutos();
+
+}
+
+/* ==========================
+EXCLUIR
+========================== */
+
+async function excluirProduto(id) {
+
+    if (
+        !confirm(
+            "Deseja excluir este produto?"
+        )
+    ) return;
+
+    await fetch(
+        "/api/produtos/" + id,
+        {
+            method: "DELETE"
+        }
+    );
+
+    carrinho =
+        carrinho.filter(
+            item => item.id !== id
+        );
+
+    atualizarCarrinho();
+
+    carregarProdutos();
+
+}
+
+/* ==========================
+CARRINHO
+========================== */
+
+function adicionarCarrinho(id) {
+
+    const produto =
+        produtos.find(
+            p => p.id === id
+        );
+
+    if (!produto) return;
+
+    if (produto.estoque <= 0) {
+
+        alert(
+            "Produto sem estoque!"
+        );
+
+        return;
+
+    }
+
+    const existente =
+        carrinho.find(
+            item => item.id === id
+        );
+
+    if (existente) {
+
+        if (
+            existente.quantidade >=
+            produto.estoque
+        ) {
+
+            alert(
+                "Limite do estoque!"
+            );
+
+            return;
+
+        }
+
+        existente.quantidade++;
+
+    } else {
+
+        carrinho.push({
+
+            id: produto.id,
+
+            nome: produto.nome,
+
+            preco: produto.preco,
+
+            quantidade: 1
+
+        });
+
+    }
+
+    atualizarCarrinho();
+
+    abrirCarrinho();
+
+}
+
+/* ==========================
+ATUALIZAR CARRINHO
+========================== */
+
+function atualizarCarrinho() {
+
+    const area =
+        document.getElementById(
+            "itensCarrinho"
+        );
+
+    area.innerHTML = "";
+
+    let total = 0;
+
+    let quantidade = 0;
+
+    carrinho.forEach(item => {
+
+        total +=
+            item.preco *
+            item.quantidade;
+
+        quantidade +=
+            item.quantidade;
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className =
+            "item-carrinho";
+
+        div.innerHTML = `
+
+            <strong>
+            ${item.nome}
+            </strong>
+
+            <br><br>
+
+            R$ ${Number(
+                item.preco
+            ).toFixed(2)}
+
+            <br>
+
+            Quantidade:
+            ${item.quantidade}
+
+            <br>
+
+            <button
+            onclick="diminuir(${item.id})">
+
+            ➖
+
+            </button>
+
+            <button
+            onclick="aumentar(${item.id})">
+
+            ➕
+
+            </button>
+
+            <button
+            onclick="removerCarrinho(${item.id})">
+
+            🗑️
+
+            </button>
+
+        `;
+
+        area.appendChild(div);
+
+    });
+
+    document.getElementById(
+        "total"
+    ).innerText =
+        total.toFixed(2);
+
+    document.getElementById(
+        "quantidadeCarrinho"
+    ).innerText =
+        quantidade;
+
+}
+
+/* ==========================
+AUMENTAR
+========================== */
+
+function aumentar(id) {
+
+    const item =
+        carrinho.find(
+            i => i.id === id
+        );
+
+    const produto =
+        produtos.find(
+            p => p.id === id
+        );
+
+    if (!item || !produto)
+        return;
+
+    if (
+        item.quantidade >=
+        produto.estoque
+    ) {
+
+        alert(
+            "Limite do estoque!"
+        );
+
+        return;
+
+    }
+
+    item.quantidade++;
+
+    atualizarCarrinho();
+
+}
+
+/* ==========================
+DIMINUIR
+========================== */
+
+function diminuir(id) {
+
+    const item =
+        carrinho.find(
+            i => i.id === id
+        );
+
+    if (!item) return;
+
+    item.quantidade--;
+
+    if (
+        item.quantidade <= 0
+    ) {
+
+        carrinho =
+            carrinho.filter(
+                i => i.id !== id
+            );
+
+    }
+
+    atualizarCarrinho();
+
+}
+
+/* ==========================
+REMOVER
+========================== */
+
+function removerCarrinho(id) {
+
+    carrinho =
+        carrinho.filter(
+            i => i.id !== id
+        );
+
+    atualizarCarrinho();
+
+}
+
+/* ==========================
+ABRIR / FECHAR
+========================== */
+
+function abrirCarrinho() {
+
+    document.getElementById(
+        "carrinho"
+    ).classList.add("aberto");
+
+}
+
+function fecharCarrinho() {
+
+    document.getElementById(
+        "carrinho"
+    ).classList.remove("aberto");
+
+}
+
+/* ==========================
+PIX
+========================== */
+
+async function copiarPix() {
+
+    const pix =
+        document.getElementById(
+            "pixCarrinho"
+        ).innerText;
+
+    await navigator.clipboard.writeText(
+        pix
+    );
+
+    alert(
+        "Chave Pix copiada!"
+    );
+
+}
+
+/* ==========================
+CONFIGURAÇÃO
+========================== */
+
+async function salvarConfig() {
+
+    const nomeLoja =
+        document.getElementById(
+            "nomeLojaInput"
+        ).value;
+
+    const pix =
+        document.getElementById(
+            "pixInput"
+        ).value;
+
+    await fetch(
+        "/api/config",
+        {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+
+                nomeLoja,
+                pix
+
+            })
+
+        }
+    );
+
+    alert(
+        "Configurações salvas!"
+    );
+
+    carregarConfig();
+
+}
+
+/* ==========================
+REEMBOLSO
+========================== */
+
+async function solicitarReembolso() {
+
+    const pedidoId =
+        document.getElementById(
+            "pedidoReembolso"
+        ).value;
+
+    const motivo =
+        document.getElementById(
+            "motivoReembolso"
+        ).value;
+
+    if (!pedidoId || !motivo) {
+
+        alert(
+            "Preencha o número do pedido e o motivo."
+        );
+
+        return;
+
+    }
+
+    const resposta =
+        await fetch(
+            "/api/reembolsos",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    pedidoId,
+                    motivo
+
+                })
+
+            }
+        );
+
+    const resultado =
+        await resposta.json();
+
+    if (resultado.sucesso) {
+
+        alert(
+            "Solicitação de reembolso enviada!"
+        );
+
+        document.getElementById(
+            "pedidoReembolso"
+        ).value = "";
+
+        document.getElementById(
+            "motivoReembolso"
+        ).value = "";
+
+    } else {
+
+        alert(resultado.erro);
+
+    }
+
+}
+
+/* ==========================
+INICIAR
+========================== */
+
+carregarConfig();
+
+carregarProdutos();
+
+</script>
+
+</body>
+
+</html>
